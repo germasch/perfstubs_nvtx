@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <nvToolsExt.h>
 
+#include <string.h>
+
 static nvtxDomainHandle_t nvtx_perfstubs_domain;
 
 void ps_tool_initialize(void)
@@ -18,7 +20,8 @@ void ps_tool_finalize(void)
 void ps_tool_start_string(const char *s)
 {
   printf("ps_tool_start_string '%s'\n", s);
-  nvtxEventAttributes_t attr = {};
+  nvtxEventAttributes_t attr;
+  memset(&attr, 0, sizeof(attr));
   attr.version = NVTX_VERSION;
   attr.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;
   attr.messageType = NVTX_MESSAGE_TYPE_ASCII;
